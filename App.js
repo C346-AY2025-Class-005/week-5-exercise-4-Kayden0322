@@ -1,6 +1,6 @@
 import React from "react";
-import {StyleSheet,Text,View,Image, TouchableOpacity,SectionList,SafeAreaView,
-} from "react-native";
+import {StyleSheet,Text,View,
+Image,TouchableOpacity,SectionList,SafeAreaView,Animated,} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -8,6 +8,7 @@ export default function App() {
   const sections = [
     {
       title: "FPS Games",
+      icon: "crosshair",
       color: "#cce4ff",
       data: [
         {
@@ -22,7 +23,8 @@ export default function App() {
     },
     {
       title: "Horror Games",
-      color: "#a00000ff",
+      icon: "skull-outline",
+      color: "#f7c0c0",
       data: [
         {
           name: "Five Nights at Freddy's",
@@ -35,25 +37,25 @@ export default function App() {
       ],
     },
     {
-      title:"Party Games",
-      color:"#fff718ff",
-      data : [
+      title: "Party Games",
+      icon: "happy-outline",
+      color: "#fff5b8",
+      data: [
         {
-        name:"Jack Box",
-        img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNsIhhEcUrjXWFAdIFPMT5SCIzvsKOHjHiGw&s",
+          name: "Jack Box",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNsIhhEcUrjXWFAdIFPMT5SCIzvsKOHjHiGw&s",
         },
         {
-          name:"Make Way",
-          img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYwl20SrKiUvTZAbgB0CfSAygI8MBiRvwsFg&s"
-        }
-
-      ]
-    }
+          name: "Make Way",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYwl20SrKiUvTZAbgB0CfSAygI8MBiRvwsFg&s",
+        },
+      ],
+    },
   ];
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <View style={styles.header}>
         <Text style={styles.headerText}>🎮 Favourite Games</Text>
       </View>
@@ -61,20 +63,18 @@ export default function App() {
         sections={sections}
         keyExtractor={(item, index) => item.name + index}
         renderSectionHeader={({ section }) => (
-          <View
-            style={[styles.sectionHeader, { backgroundColor: section.color }]}
-          >
-            <Ionicons name={section.icon} size={20} color={"#333"} />
+          <View style={[styles.sectionHeader, { backgroundColor: section.color }]}>
+            <Ionicons name={section.icon} size={20} color="#333" />
             <Text style={styles.sectionTitle}>{section.title}</Text>
           </View>
         )}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.row}>
-            <View style={styles.leftColumn}>
-              <Text style={styles.gameTitle}>{item.name}</Text>
+          <TouchableOpacity style={styles.card} activeOpacity={0.8}>
+            <View style={styles.cardLeft}>
+              <Text style={styles.gameName}>{item.name}</Text>
             </View>
 
-            <Image source={{ uri: item.img }} style={styles.thumbnail} />
+            <Image source={{ uri: item.img }} style={styles.cardImage} />
           </TouchableOpacity>
         )}
       />
@@ -85,65 +85,71 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f7f7f7",
+    backgroundColor: "#eef2f7",
   },
 
   header: {
     backgroundColor: "#4a90e2",
-    paddingVertical: 20,
+    paddingVertical: 22,
     alignItems: "center",
-    marginBottom: 5,
+    marginBottom: 10,
+    elevation: 4,
   },
 
   headerText: {
     color: "white",
+    fontSize: 22,
     fontWeight: "bold",
-    fontSize: 20,
+    letterSpacing: 1,
   },
 
   sectionHeader: {
-    padding: 10,
     flexDirection: "row",
+    padding: 12,
+    paddingLeft: 15,
     alignItems: "center",
+    borderRadius: 6,
+    marginHorizontal: 12,
+    marginTop: 15,
   },
 
   sectionTitle: {
-    marginLeft: 8,
-    fontWeight: "bold",
-    fontSize: 16,
+    marginLeft: 10,
+    fontSize: 17,
+    fontWeight: "700",
     color: "#333",
   },
 
-  row: {
+  card: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "white",
-    marginVertical: 3,
     padding: 12,
-    borderRadius: 8,
-    marginHorizontal: 8,
-
+    borderRadius: 10,
+    marginHorizontal: 12,
+    marginVertical: 6,
+    elevation: 3,
     shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 2,
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 3 },
   },
 
-  leftColumn: {
+  cardLeft: {
     flex: 1,
-    justifyContent: "center",
+    paddingRight: 10,
   },
 
-  gameTitle: {
-    fontSize: 15,
+  gameName: {
+    fontSize: 16,
     fontWeight: "600",
+    color: "#333",
   },
 
-  thumbnail: {
-    width: 90,
-    height: 120,
-    borderRadius: 8,
-    marginLeft: 10,
+  cardImage: {
+    width: 110,
+    height: 140,
+    borderRadius: 10,
+    backgroundColor: "#ddd",
   },
 });
