@@ -22,7 +22,7 @@ export default function App() {
     },
     {
       title: "Horror Games",
-      color: "#ffe0e0",
+      color: "#a00000ff",
       data: [
         {
           name: "Five Nights at Freddy's",
@@ -36,7 +36,7 @@ export default function App() {
     },
     {
       title:"Party Games",
-      color:"#ffe0e0",
+      color:"#fff718ff",
       data : [
         {
         name:"Jack Box",
